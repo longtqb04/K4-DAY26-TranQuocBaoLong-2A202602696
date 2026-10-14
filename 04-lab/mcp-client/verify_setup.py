@@ -26,8 +26,15 @@ def check_environment():
         print("❌ GOOGLE_API_KEY not configured in .env")
         print("   Get key from: https://aistudio.google.com/apikey")
         return False
-    
-    print(f"✅ GOOGLE_API_KEY configured ({api_key[:10]}...)")
+
+    credential = api_key.strip()
+    if credential.startswith(("ya29.", "AQ.")) or credential.lower().startswith("bearer "):
+        print("❌ GOOGLE_API_KEY contains an OAuth access token, not a Gemini API key")
+        print("   Create an API key at: https://aistudio.google.com/apikey")
+        print("   Replace GOOGLE_API_KEY in .env; do not include a 'Bearer ' prefix")
+        return False
+
+    print("✅ GOOGLE_API_KEY configured (value hidden)")
     return True
 
 def check_dependencies():
@@ -150,4 +157,3 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
-

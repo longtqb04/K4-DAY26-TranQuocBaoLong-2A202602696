@@ -17,9 +17,20 @@ User hỏi  →  Model quyết định gọi get_weather(city="Hà Nội")
 
 ```bash
 pip install -r ../requirements.txt
-export GEMINI_API_KEY=...
 python weather_function_calling.py
 ```
+
+On Windows, run the project virtual environment explicitly from this folder:
+
+```powershell
+..\.venv\Scripts\python.exe .\weather_function_calling.py
+```
+
+Create a `.env` file in the project root (the parent directory of
+`01-function-calling`) and set `GEMINI_API_KEY` to an API key created in
+[Google AI Studio](https://aistudio.google.com/app/apikey). The script loads
+this file automatically. Do not put an OAuth access token in this variable or
+commit the `.env` file.
 
 ## File
 

@@ -6,15 +6,27 @@ chính file app này. Model chỉ QUYẾT ĐỊNH gọi tool nào; app mới là
 Cách chạy:
     pip install -r ../requirements.txt
     export GEMINI_API_KEY=...
-    python weather_function_calling.py
+    ..\.venv\Scripts\python.exe weather_function_calling.py
 """
 
+import os
+from pathlib import Path
+
+from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
-client = genai.Client()
+load_dotenv(Path(__file__).resolve().parents[1] / ".env")
+api_key = os.getenv("GEMINI_API_KEY")
+if not api_key:
+    raise RuntimeError(
+        "GEMINI_API_KEY is missing. Set it in the project-root .env file "
+        "or in the environment."
+    )
 
-MODEL = "gemini-2.5-flash"
+client = genai.Client(api_key=api_key)
+
+MODEL = "gemini-3.6-flash"
 
 SYSTEM_INSTRUCTION = (
     "Bạn là trợ lý thời tiết thân thiện, trả lời bằng tiếng Việt tự nhiên. "
